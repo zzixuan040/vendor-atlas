@@ -1,91 +1,140 @@
 {
-  "generated_at": "2026-09-08T00:00:00.000Z",
+  "generated_at": "2026-09-09T09:08:46.245861Z",
   "vendor_count": 34,
   "vendors": [
     {
-      "id": "alegion",
       "name": "Alegion",
       "website": "https://alegion.com",
       "hq_country": "United States",
       "founded_year": 2012,
-      "data_types": ["image", "video", "text/NLP"],
-      "services": ["raw data collection", "annotation/labeling", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "text/NLP"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "managed workforce"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Healthcare, insurance, hospitality, retail, manufacturing computer-vision use cases",
       "compliance_notes": "",
       "employee_size_range": "51-200",
-      "notes": "Austin-based mid-size annotation vendor with a key delivery center in Kuala Lumpur; focuses on vertical-specific computer vision projects rather than general-purpose crowd scale.",
-      "source_url": "https://alegion.com/about-us/",
+      "notes": "Small Austin-based vendor (~50 staff, roughly $15M raised and no new funding since its Series A) with a Kuala Lumpur delivery center; fine for vertical-specific CV projects but thin capacity and limited public compliance disclosures \u2014 verify scale and certifications before large commitments.",
+      "source_url": "https://tracxn.com/d/companies/alegion/__CwIeTuj_FnuPQ7ljtfmOis2yMsLEbhjZLL7977ZJnPA",
+      "id": "alegion",
       "created_at": "2026-09-08T00:00:00.000Z",
-      "updated_at": "2026-09-08T00:00:00.000Z"
+      "updated_at": "2026-09-09T09:08:46.245861Z"
     },
     {
-      "id": "appen",
       "name": "Appen",
       "website": "https://appen.com",
       "hq_country": "Australia",
       "founded_year": 1996,
-      "data_types": ["image", "video", "audio/speech", "text/NLP", "multilingual"],
-      "services": ["raw data collection", "annotation/labeling", "crowdsourcing platform", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "audio/speech",
+        "text/NLP",
+        "multilingual"
+      ],
+      "services": [
+        "raw data collection",
+        "data licensing/marketplace",
+        "annotation/labeling",
+        "crowdsourcing platform",
+        "managed workforce"
+      ],
       "workforce_model": "crowd/gig",
-      "notable_clients_or_industries": "Enterprise NLP, search relevance, tech giants (long history with major search/social platforms)",
+      "notable_clients_or_industries": "Frontier LLM labs, enterprise NLP, search/social relevance, China market",
       "compliance_notes": "ISO 27001; publicly traded (ASX: APX) with formal data governance program",
       "employee_size_range": "500-1000 (core staff, plus ~1M crowd)",
-      "notes": "One of the oldest and largest publicly traded AI data vendors, with a global crowd of over a million contributors across 235+ languages/dialects; has faced revenue declines as newer specialized vendors erode share.",
-      "source_url": "https://en.wikipedia.org/wiki/Appen_(company)",
+      "notes": "Returned to growth in FY2025 (revenue ~US$230.8M, positive underlying EBITDA) on the back of generative-AI work, which made up ~44% of Q4 FY25 revenue, with FY2026 guidance of US$270-300M; still loss-making at the statutory level, so pricing leverage exists but watch financial stability.",
+      "source_url": "https://kalkine.com.au/news/technology/appen-asxapx-can-china-and-generative-ai-sustain-its-operational-recovery",
+      "id": "appen",
       "created_at": "2026-09-08T00:00:00.000Z",
-      "updated_at": "2026-09-08T00:00:00.000Z"
+      "updated_at": "2026-09-09T09:08:46.245861Z"
     },
     {
-      "id": "centific",
       "name": "Centific (formerly Pactera EDGE, incl. OneForma)",
       "website": "https://centific.com",
       "hq_country": "United States",
       "founded_year": 2020,
-      "data_types": ["image", "video", "audio/speech", "text/NLP", "multilingual"],
-      "services": ["raw data collection", "annotation/labeling", "crowdsourcing platform", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "audio/speech",
+        "text/NLP",
+        "multilingual"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "crowdsourcing platform",
+        "managed workforce"
+      ],
       "workforce_model": "hybrid",
       "notable_clients_or_industries": "Frontier AI/LLM labs, Microsoft/Nvidia partner ecosystem, enterprise AI data foundry",
       "compliance_notes": "Enterprise security program; SOC 2-aligned controls",
       "employee_size_range": "1000-5000",
-      "notes": "Rebrand of Pactera EDGE; operates the OneForma crowdsourcing app and markets itself as an 'AI data foundry' partnering directly with model labs like Nvidia; raised $60M in 2025 to scale.",
-      "source_url": "https://www.geekwire.com/2025/centific-a-seattle-area-ai-services-startup-and-nvidia-partner-lands-60m/",
+      "notes": "Redmond, WA-based 'AI data foundry' (Pactera EDGE rebrand, operates the OneForma crowd app) that closed a $60M Series A led by Granite Asia in June 2025 to expand into Asia; well-capitalized and Nvidia-partnered, so a strong fit for multimodal/multilingual pipelines at scale.",
+      "source_url": "https://fortune.com/asia/2025/06/25/centific-series-a-funding-venkat-rangapuram-granite-asia-jenny-lee/",
+      "id": "centific-formerly-pactera-edge-incl-oneforma",
       "created_at": "2026-09-08T00:00:00.000Z",
-      "updated_at": "2026-09-08T00:00:00.000Z"
+      "updated_at": "2026-09-09T09:08:46.245861Z"
     },
     {
-      "id": "cloudfactory",
       "name": "CloudFactory",
       "website": "https://www.cloudfactory.com",
       "hq_country": "United Kingdom",
       "founded_year": 2010,
-      "data_types": ["image", "video", "text/NLP"],
-      "services": ["annotation/labeling", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "text/NLP"
+      ],
+      "services": [
+        "annotation/labeling",
+        "managed workforce"
+      ],
       "workforce_model": "managed team",
-      "notable_clients_or_industries": "Computer vision, document processing, insurance/fintech workflows",
+      "notable_clients_or_industries": "Computer vision, document processing, insurance/fintech workflows, AI consulting",
       "compliance_notes": "ISO 27001, GDPR",
       "employee_size_range": "1000-5000",
-      "notes": "Global HQ in the Thames Valley (UK) with operational roots and major delivery centers in Nepal and Kenya; positions itself as a managed 'human-in-the-loop' workforce rather than a pure self-serve platform.",
-      "source_url": "https://www.cloudfactory.com",
+      "notes": "UK-registered with a US commercial base in Raleigh/Durham, NC and delivery centers in Nepal and Kenya; under CEO Kevin Johnston (appointed Jan 2024, with founder Mark Sears as executive chairman) and a new CPTO hired in 2025, it is shifting from pure managed labeling toward AI consulting/tooling (it acquired Hasty.ai) \u2014 confirm raw-data-collection capability, which is not a core offering.",
+      "source_url": "https://www.cloudfactory.com/leadership-team",
+      "id": "cloudfactory",
       "created_at": "2026-09-08T00:00:00.000Z",
-      "updated_at": "2026-09-08T00:00:00.000Z"
+      "updated_at": "2026-09-09T09:08:46.245861Z"
     },
     {
-      "id": "cogito-tech",
       "name": "Cogito Tech",
       "website": "https://www.cogitotech.com",
       "hq_country": "United States",
       "founded_year": 2014,
-      "data_types": ["image", "video", "audio/speech", "text/NLP"],
-      "services": ["raw data collection", "annotation/labeling", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "audio/speech",
+        "text/NLP",
+        "medical",
+        "sensor/LiDAR"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "managed workforce"
+      ],
       "workforce_model": "managed team",
-      "notable_clients_or_industries": "Computer vision, generative AI/RLHF, autonomous systems",
-      "compliance_notes": "ISO 27001, SOC 2, GDPR",
-      "employee_size_range": "51-1000",
-      "notes": "Positions itself as a managed-service data-development partner with delivery teams across Asia, North America, and Europe; publishes frequent industry benchmarking content on the data labeling market.",
-      "source_url": "https://www.cogitotech.com/",
+      "notable_clients_or_industries": "Computer vision, generative AI/RLHF, robotics, healthcare/medical imaging, autonomous systems",
+      "compliance_notes": "ISO 27001, SOC 2, GDPR, HIPAA-aligned workflows",
+      "employee_size_range": "1000-5000",
+      "notes": "Fast-scaling managed-service provider recognized by the Financial Times in March 2025 as one of America's fastest-growing companies on ~400% growth in 18 months, with India-based delivery and recent expansion into robotics/sim-to-real and medical datasets; rapid growth means capacity is available but ask for project-level QA references.",
+      "source_url": "https://finance.yahoo.com/news/cogito-tech-named-among-america-203200791.html",
+      "id": "cogito-tech",
       "created_at": "2026-09-08T00:00:00.000Z",
-      "updated_at": "2026-09-08T00:00:00.000Z"
+      "updated_at": "2026-09-09T09:08:46.245861Z"
     },
     {
       "id": "dataforce",
@@ -93,8 +142,18 @@
       "website": "https://www.dataforce.ai",
       "hq_country": "United States",
       "founded_year": 1992,
-      "data_types": ["image", "video", "audio/speech", "text/NLP", "multilingual"],
-      "services": ["raw data collection", "annotation/labeling", "crowdsourcing platform"],
+      "data_types": [
+        "image",
+        "video",
+        "audio/speech",
+        "text/NLP",
+        "multilingual"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "crowdsourcing platform"
+      ],
       "workforce_model": "hybrid",
       "notable_clients_or_industries": "Enterprise NLP, code-generation model training (vetted software engineers), multilingual AI",
       "compliance_notes": "Leverages TransPerfect's ISO 17100/ISO 9001 and enterprise security infrastructure",
@@ -110,8 +169,18 @@
       "website": "https://www.dataoceanai.com",
       "hq_country": "China",
       "founded_year": 2005,
-      "data_types": ["audio/speech", "multilingual", "image", "text/NLP", "video"],
-      "services": ["raw data collection", "data licensing/marketplace", "annotation/labeling"],
+      "data_types": [
+        "audio/speech",
+        "multilingual",
+        "image",
+        "text/NLP",
+        "video"
+      ],
+      "services": [
+        "raw data collection",
+        "data licensing/marketplace",
+        "annotation/labeling"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Speech recognition/TTS across low-resource languages and dialects, enterprise voice AI",
       "compliance_notes": "",
@@ -127,8 +196,18 @@
       "website": "https://www.datatang.ai",
       "hq_country": "China",
       "founded_year": 2011,
-      "data_types": ["image", "video", "audio/speech", "text/NLP", "sensor/LiDAR"],
-      "services": ["raw data collection", "data licensing/marketplace", "annotation/labeling"],
+      "data_types": [
+        "image",
+        "video",
+        "audio/speech",
+        "text/NLP",
+        "sensor/LiDAR"
+      ],
+      "services": [
+        "raw data collection",
+        "data licensing/marketplace",
+        "annotation/labeling"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Autonomous driving (Sunnyvale, CA office serving Silicon Valley AV clients), off-the-shelf multimodal datasets",
       "compliance_notes": "",
@@ -144,8 +223,15 @@
       "website": "https://www.deepen.ai",
       "hq_country": "United States",
       "founded_year": 2017,
-      "data_types": ["sensor/LiDAR", "image", "video"],
-      "services": ["annotation/labeling", "raw data collection"],
+      "data_types": [
+        "sensor/LiDAR",
+        "image",
+        "video"
+      ],
+      "services": [
+        "annotation/labeling",
+        "raw data collection"
+      ],
       "workforce_model": "platform/self-serve",
       "notable_clients_or_industries": "Autonomous vehicles, robotics, ADAS scenario/safety databases",
       "compliance_notes": "",
@@ -161,8 +247,18 @@
       "website": "https://defined.ai",
       "hq_country": "United States",
       "founded_year": 2015,
-      "data_types": ["audio/speech", "text/NLP", "multilingual", "synthetic"],
-      "services": ["raw data collection", "data licensing/marketplace", "annotation/labeling", "crowdsourcing platform"],
+      "data_types": [
+        "audio/speech",
+        "text/NLP",
+        "multilingual",
+        "synthetic"
+      ],
+      "services": [
+        "raw data collection",
+        "data licensing/marketplace",
+        "annotation/labeling",
+        "crowdsourcing platform"
+      ],
       "workforce_model": "hybrid",
       "notable_clients_or_industries": "Conversational AI, voice assistants, enterprise LLM training",
       "compliance_notes": "GDPR-compliant ethical sourcing; contributor consent-based data licensing",
@@ -178,8 +274,15 @@
       "website": "https://encord.com",
       "hq_country": "United Kingdom",
       "founded_year": 2020,
-      "data_types": ["image", "video", "sensor/LiDAR", "medical"],
-      "services": ["annotation/labeling"],
+      "data_types": [
+        "image",
+        "video",
+        "sensor/LiDAR",
+        "medical"
+      ],
+      "services": [
+        "annotation/labeling"
+      ],
       "workforce_model": "platform/self-serve",
       "notable_clients_or_industries": "Physical AI/robotics, autonomous systems, medical imaging",
       "compliance_notes": "SOC 2, HIPAA-aligned controls, GDPR",
@@ -195,13 +298,21 @@
       "website": "https://thehive.ai",
       "hq_country": "United States",
       "founded_year": 2013,
-      "data_types": ["image", "video", "text/NLP"],
-      "services": ["raw data collection", "annotation/labeling", "crowdsourcing platform"],
+      "data_types": [
+        "image",
+        "video",
+        "text/NLP"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "crowdsourcing platform"
+      ],
       "workforce_model": "hybrid",
       "notable_clients_or_industries": "Content moderation, trust & safety, AI-generated content detection",
       "compliance_notes": "",
       "employee_size_range": "201-500 (plus a distributed gig contributor base)",
-      "notes": "Runs its own Hive Work gig app to source labeled data at scale, feeding its own pretrained content-moderation/classification APIs — blending a data vendor and AI-model-company business model.",
+      "notes": "Runs its own Hive Work gig app to source labeled data at scale, feeding its own pretrained content-moderation/classification APIs \u2014 blending a data vendor and AI-model-company business model.",
       "source_url": "https://en.wikipedia.org/wiki/Hive_(artificial_intelligence_company)",
       "created_at": "2026-09-08T00:00:00.000Z",
       "updated_at": "2026-09-08T00:00:00.000Z"
@@ -212,8 +323,16 @@
       "website": "https://hivemapper.com",
       "hq_country": "United States",
       "founded_year": 2015,
-      "data_types": ["geospatial", "image", "video"],
-      "services": ["raw data collection", "data licensing/marketplace", "crowdsourcing platform"],
+      "data_types": [
+        "geospatial",
+        "image",
+        "video"
+      ],
+      "services": [
+        "raw data collection",
+        "data licensing/marketplace",
+        "crowdsourcing platform"
+      ],
       "workforce_model": "crowd/gig",
       "notable_clients_or_industries": "Mapping/geospatial AI, fleet and dashcam-based street-level imagery",
       "compliance_notes": "",
@@ -229,8 +348,16 @@
       "website": "https://humansintheloop.org",
       "hq_country": "Bulgaria",
       "founded_year": 2017,
-      "data_types": ["image", "text/NLP", "video"],
-      "services": ["raw data collection", "annotation/labeling", "managed workforce"],
+      "data_types": [
+        "image",
+        "text/NLP",
+        "video"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "managed workforce"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Responsible/ethical AI programs, computer vision for NGOs and enterprises",
       "compliance_notes": "Fair Work Policy; social-enterprise ethical labor practices",
@@ -246,8 +373,18 @@
       "website": "https://imerit.net",
       "hq_country": "United States",
       "founded_year": 2012,
-      "data_types": ["image", "video", "text/NLP", "medical", "sensor/LiDAR"],
-      "services": ["raw data collection", "annotation/labeling", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "text/NLP",
+        "medical",
+        "sensor/LiDAR"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "managed workforce"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Autonomous vehicles, healthcare/medical imaging, geospatial, generative AI",
       "compliance_notes": "ISO 27001:2013, SOC 2, HIPAA, GDPR, 21 CFR Part 11",
@@ -263,8 +400,16 @@
       "website": "https://www.innodata.com",
       "hq_country": "United States",
       "founded_year": 1988,
-      "data_types": ["text/NLP", "image", "multilingual"],
-      "services": ["raw data collection", "annotation/labeling", "managed workforce"],
+      "data_types": [
+        "text/NLP",
+        "image",
+        "multilingual"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "managed workforce"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Frontier LLM labs, enterprise generative AI data preparation",
       "compliance_notes": "Public company (NASDAQ: INOD) with formal enterprise data governance/compliance program",
@@ -280,8 +425,15 @@
       "website": "https://kili-technology.com",
       "hq_country": "France",
       "founded_year": 2018,
-      "data_types": ["image", "video", "text/NLP", "audio/speech"],
-      "services": ["annotation/labeling"],
+      "data_types": [
+        "image",
+        "video",
+        "text/NLP",
+        "audio/speech"
+      ],
+      "services": [
+        "annotation/labeling"
+      ],
       "workforce_model": "platform/self-serve",
       "notable_clients_or_industries": "Enterprise ML teams in Europe and the US",
       "compliance_notes": "GDPR-native (EU-based)",
@@ -297,8 +449,16 @@
       "website": "https://labelbox.com",
       "hq_country": "United States",
       "founded_year": 2018,
-      "data_types": ["image", "video", "text/NLP"],
-      "services": ["annotation/labeling", "managed workforce", "crowdsourcing platform"],
+      "data_types": [
+        "image",
+        "video",
+        "text/NLP"
+      ],
+      "services": [
+        "annotation/labeling",
+        "managed workforce",
+        "crowdsourcing platform"
+      ],
       "workforce_model": "hybrid",
       "notable_clients_or_industries": "Enterprise AI data factories (Airbnb, John Deere, P&G cited as customers), generative AI/RLHF",
       "compliance_notes": "SOC 2 Type II, ISO 27001:2022, HIPAA program, GDPR",
@@ -314,8 +474,18 @@
       "website": "https://www.lxt.ai",
       "hq_country": "Canada",
       "founded_year": 2010,
-      "data_types": ["image", "audio/speech", "text/NLP", "multilingual"],
-      "services": ["raw data collection", "annotation/labeling", "crowdsourcing platform", "managed workforce"],
+      "data_types": [
+        "image",
+        "audio/speech",
+        "text/NLP",
+        "multilingual"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "crowdsourcing platform",
+        "managed workforce"
+      ],
       "workforce_model": "hybrid",
       "notable_clients_or_industries": "Conversational AI, speech recognition, enterprise NLP across 1000+ language locales",
       "compliance_notes": "GDPR; formal data collection consent and privacy program",
@@ -331,13 +501,19 @@
       "website": "https://mercor.com",
       "hq_country": "United States",
       "founded_year": 2023,
-      "data_types": ["text/NLP"],
-      "services": ["raw data collection", "crowdsourcing platform", "managed workforce"],
+      "data_types": [
+        "text/NLP"
+      ],
+      "services": [
+        "raw data collection",
+        "crowdsourcing platform",
+        "managed workforce"
+      ],
       "workforce_model": "hybrid",
       "notable_clients_or_industries": "Frontier LLM labs (OpenAI, Anthropic cited), expert-contributor RLHF data",
       "compliance_notes": "",
       "employee_size_range": "1000-5000",
-      "notes": "Started as an AI-driven recruiting marketplace before pivoting to supply vetted expert contributors (doctors, lawyers, engineers) for frontier-model training data; reached a reported $10B valuation within about two years — a talent-marketplace approach to sourcing high-skill annotators.",
+      "notes": "Started as an AI-driven recruiting marketplace before pivoting to supply vetted expert contributors (doctors, lawyers, engineers) for frontier-model training data; reached a reported $10B valuation within about two years \u2014 a talent-marketplace approach to sourcing high-skill annotators.",
       "source_url": "https://en.wikipedia.org/wiki/Mercor",
       "created_at": "2026-09-08T00:00:00.000Z",
       "updated_at": "2026-09-08T00:00:00.000Z"
@@ -348,13 +524,18 @@
       "website": "https://mostly.ai",
       "hq_country": "Netherlands",
       "founded_year": 2017,
-      "data_types": ["synthetic", "text/NLP"],
-      "services": ["synthetic data generation"],
+      "data_types": [
+        "synthetic",
+        "text/NLP"
+      ],
+      "services": [
+        "synthetic data generation"
+      ],
       "workforce_model": "platform/self-serve",
       "notable_clients_or_industries": "Financial services, insurance (privacy-safe synthetic tabular data)",
       "compliance_notes": "GDPR-focused privacy-preserving synthetic data generation",
       "employee_size_range": "11-50",
-      "notes": "The original Vienna-founded MOSTLY AI entity ceased operations in March 2026; Amsterdam-based Syntho acquired the MOSTLY AI brand and SDK in June 2026 and continues the product line — a recent brand/ownership change worth flagging to procurement.",
+      "notes": "The original Vienna-founded MOSTLY AI entity ceased operations in March 2026; Amsterdam-based Syntho acquired the MOSTLY AI brand and SDK in June 2026 and continues the product line \u2014 a recent brand/ownership change worth flagging to procurement.",
       "source_url": "https://www.syntho.ai/syntho-acquires-mostly-ai-trademark-and-related-assets/",
       "created_at": "2026-09-08T00:00:00.000Z",
       "updated_at": "2026-09-08T00:00:00.000Z"
@@ -365,8 +546,16 @@
       "website": "https://objectways.com",
       "hq_country": "United States",
       "founded_year": 2018,
-      "data_types": ["image", "video", "text/NLP"],
-      "services": ["raw data collection", "annotation/labeling", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "text/NLP"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "managed workforce"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Generative AI, computer vision, content moderation",
       "compliance_notes": "",
@@ -382,8 +571,15 @@
       "website": "https://paralleldomain.com",
       "hq_country": "United States",
       "founded_year": 2018,
-      "data_types": ["synthetic", "image", "sensor/LiDAR", "video"],
-      "services": ["synthetic data generation"],
+      "data_types": [
+        "synthetic",
+        "image",
+        "sensor/LiDAR",
+        "video"
+      ],
+      "services": [
+        "synthetic data generation"
+      ],
       "workforce_model": "platform/self-serve",
       "notable_clients_or_industries": "Autonomous vehicles, robotics simulation/testing",
       "compliance_notes": "",
@@ -399,8 +595,13 @@
       "website": "https://www.prolific.com",
       "hq_country": "United Kingdom",
       "founded_year": 2014,
-      "data_types": ["text/NLP"],
-      "services": ["raw data collection", "crowdsourcing platform"],
+      "data_types": [
+        "text/NLP"
+      ],
+      "services": [
+        "raw data collection",
+        "crowdsourcing platform"
+      ],
       "workforce_model": "crowd/gig",
       "notable_clients_or_industries": "Academic behavioral research, RLHF/human-feedback data for AI labs",
       "compliance_notes": "GDPR (UK/EU based); participant vetting and identity verification",
@@ -416,8 +617,16 @@
       "website": "https://www.sama.com",
       "hq_country": "United States",
       "founded_year": 2008,
-      "data_types": ["image", "video", "text/NLP"],
-      "services": ["raw data collection", "annotation/labeling", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "text/NLP"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "managed workforce"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Computer vision, autonomous vehicles, generative AI safety (RLHF), Fortune 2000 (Walmart, Nvidia, GM, Google cited as past clients)",
       "compliance_notes": "GDPR; Fair Trade-certified ethical AI workforce practices",
@@ -433,8 +642,20 @@
       "website": "https://scale.com",
       "hq_country": "United States",
       "founded_year": 2016,
-      "data_types": ["image", "video", "text/NLP", "audio/speech", "sensor/LiDAR", "synthetic"],
-      "services": ["raw data collection", "annotation/labeling", "synthetic data generation", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "text/NLP",
+        "audio/speech",
+        "sensor/LiDAR",
+        "synthetic"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "synthetic data generation",
+        "managed workforce"
+      ],
       "workforce_model": "hybrid",
       "notable_clients_or_industries": "Autonomous vehicles, government/defense, generative AI/LLM evaluation",
       "compliance_notes": "SOC 2 Type 2",
@@ -450,8 +671,18 @@
       "website": "https://www.shaip.com",
       "hq_country": "United States",
       "founded_year": 2018,
-      "data_types": ["audio/speech", "text/NLP", "image", "video", "medical"],
-      "services": ["raw data collection", "data licensing/marketplace", "annotation/labeling"],
+      "data_types": [
+        "audio/speech",
+        "text/NLP",
+        "image",
+        "video",
+        "medical"
+      ],
+      "services": [
+        "raw data collection",
+        "data licensing/marketplace",
+        "annotation/labeling"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Healthcare AI, clinical NLP, conversational AI",
       "compliance_notes": "HIPAA-compliant, ISO 27001",
@@ -467,8 +698,15 @@
       "website": "https://www.superannotate.com",
       "hq_country": "United States",
       "founded_year": 2018,
-      "data_types": ["image", "video", "text/NLP"],
-      "services": ["annotation/labeling", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "text/NLP"
+      ],
+      "services": [
+        "annotation/labeling",
+        "managed workforce"
+      ],
       "workforce_model": "hybrid",
       "notable_clients_or_industries": "Computer vision, generative AI/LLM data curation for enterprise",
       "compliance_notes": "SOC 2",
@@ -484,8 +722,14 @@
       "website": "https://www.surgehq.ai",
       "hq_country": "United States",
       "founded_year": 2020,
-      "data_types": ["text/NLP"],
-      "services": ["raw data collection", "annotation/labeling", "managed workforce"],
+      "data_types": [
+        "text/NLP"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "managed workforce"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Frontier LLM labs (Anthropic, OpenAI, Meta, Microsoft cited), RLHF and RL-environment data",
       "compliance_notes": "",
@@ -501,8 +745,15 @@
       "website": "https://synthesis.ai",
       "hq_country": "United States",
       "founded_year": 2019,
-      "data_types": ["synthetic", "image", "video"],
-      "services": ["synthetic data generation", "data licensing/marketplace"],
+      "data_types": [
+        "synthetic",
+        "image",
+        "video"
+      ],
+      "services": [
+        "synthetic data generation",
+        "data licensing/marketplace"
+      ],
       "workforce_model": "platform/self-serve",
       "notable_clients_or_industries": "Computer vision (face/human-centric models), biometrics, AR/VR",
       "compliance_notes": "Privacy-by-design synthetic identities (avoids real biometric PII)",
@@ -518,8 +769,20 @@
       "website": "https://www.telusdigital.com",
       "hq_country": "Canada",
       "founded_year": 2000,
-      "data_types": ["image", "video", "audio/speech", "text/NLP", "multilingual", "sensor/LiDAR"],
-      "services": ["raw data collection", "annotation/labeling", "crowdsourcing platform", "managed workforce"],
+      "data_types": [
+        "image",
+        "video",
+        "audio/speech",
+        "text/NLP",
+        "multilingual",
+        "sensor/LiDAR"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "crowdsourcing platform",
+        "managed workforce"
+      ],
       "workforce_model": "hybrid",
       "notable_clients_or_industries": "Search/social platform relevance, autonomous vehicles (via acquired Playment), enterprise AI",
       "compliance_notes": "SOC 2, GDPR-aligned data governance program",
@@ -535,8 +798,17 @@
       "website": "https://toloka.ai",
       "hq_country": "Netherlands",
       "founded_year": 2014,
-      "data_types": ["image", "audio/speech", "text/NLP", "multilingual"],
-      "services": ["raw data collection", "annotation/labeling", "crowdsourcing platform"],
+      "data_types": [
+        "image",
+        "audio/speech",
+        "text/NLP",
+        "multilingual"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling",
+        "crowdsourcing platform"
+      ],
       "workforce_model": "crowd/gig",
       "notable_clients_or_industries": "LLM fine-tuning/RLHF, generative AI evaluation",
       "compliance_notes": "GDPR-aligned; part of Nasdaq-listed Nebius Group",
@@ -552,13 +824,19 @@
       "website": "https://www.v7labs.com",
       "hq_country": "United Kingdom",
       "founded_year": 2018,
-      "data_types": ["image", "video", "medical"],
-      "services": ["annotation/labeling"],
+      "data_types": [
+        "image",
+        "video",
+        "medical"
+      ],
+      "services": [
+        "annotation/labeling"
+      ],
       "workforce_model": "platform/self-serve",
       "notable_clients_or_industries": "Computer vision, medical imaging AI, document automation",
       "compliance_notes": "",
       "employee_size_range": "51-200",
-      "notes": "Originated as computer-vision startup Aipoly before rebranding; known for auto-annotation/active-learning tooling (Darwin platform) rather than providing its own labor force — appeals to teams wanting self-serve over managed services.",
+      "notes": "Originated as computer-vision startup Aipoly before rebranding; known for auto-annotation/active-learning tooling (Darwin platform) rather than providing its own labor force \u2014 appeals to teams wanting self-serve over managed services.",
       "source_url": "https://en.wikipedia.org/wiki/V7_(company)",
       "created_at": "2026-09-08T00:00:00.000Z",
       "updated_at": "2026-09-08T00:00:00.000Z"
@@ -569,8 +847,15 @@
       "website": "https://waywithwords.net",
       "hq_country": "United Kingdom",
       "founded_year": 2002,
-      "data_types": ["audio/speech", "text/NLP", "multilingual"],
-      "services": ["raw data collection", "annotation/labeling"],
+      "data_types": [
+        "audio/speech",
+        "text/NLP",
+        "multilingual"
+      ],
+      "services": [
+        "raw data collection",
+        "annotation/labeling"
+      ],
       "workforce_model": "managed team",
       "notable_clients_or_industries": "Speech recognition training data, transcription/captioning for enterprise and media",
       "compliance_notes": "GDPR-aligned; confidentiality/NDA-driven workflows for sensitive audio",

@@ -1,0 +1,13 @@
+[
+  {
+    "timestamp": "2026-09-09T09:08:46.245861Z",
+    "model": "claude-opus-5",
+    "sample_mode": true,
+    "vendor_count": 34,
+    "added": 0,
+    "removed": 0,
+    "updated": 5,
+    "searches_used": 7,
+    "est_cost_usd": 0.3247
+  }
+]
