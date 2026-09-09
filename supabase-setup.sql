@@ -29,6 +29,21 @@ create table if not exists vendor_activity (
 
 create index if not exists vendor_activity_vendor_idx on vendor_activity (vendor_id, ts desc);
 
+-- Table privileges for the public (anon) role.
+--
+-- These are separate from, and required in addition to, the RLS policies below:
+-- a policy can only narrow access the role already has. Without these grants
+-- every request fails with 42501 "permission denied for table", which reads
+-- like an auth problem but isn't.
+--
+-- Note what is deliberately NOT granted: no delete anywhere, and no update on
+-- vendor_activity — that keeps the activity log append-only at the database
+-- level rather than only by convention in the UI.
+grant usage on schema public to anon;
+grant select, insert, update on table vendor_workflow to anon;
+grant select, insert on table vendor_activity to anon;
+grant usage, select on sequence vendor_activity_id_seq to anon;
+
 alter table vendor_workflow enable row level security;
 alter table vendor_activity enable row level security;
 

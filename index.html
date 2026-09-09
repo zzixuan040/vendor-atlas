@@ -394,7 +394,13 @@
       for(var k in (extra || {})){ h[k] = extra[k]; }
       return h;
     },
-    _url: function(path){ return String(cfg.supabaseUrl).replace(/\/$/, "") + "/rest/v1/" + path; },
+    // Accept either the project URL ("https://x.supabase.co") or the full REST
+    // base ("https://x.supabase.co/rest/v1/") — Supabase's dashboard shows both
+    // in different places, and doubling the path silently 404s.
+    _url: function(path){
+      var base = String(cfg.supabaseUrl).trim().replace(/\/+$/, "").replace(/\/rest\/v1$/, "");
+      return base + "/rest/v1/" + path;
+    },
 
     load: function(){
       var self = this;
