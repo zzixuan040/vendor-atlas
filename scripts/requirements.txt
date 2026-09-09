@@ -1,0 +1,4 @@
+# Unpinned on purpose: the weekly GitHub Actions run installs fresh each
+# time, so it always picks up the current Anthropic SDK rather than drifting
+# from a version pinned once and forgotten.
+anthropic

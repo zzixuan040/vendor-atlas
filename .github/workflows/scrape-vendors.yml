@@ -1,0 +1,40 @@
+name: Refresh vendor data
+
+on:
+  schedule:
+    # Mondays at 06:00 UTC
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Run vendor research
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/scrape_vendors.py
+
+      - name: Commit vendors.json if it changed
+        run: |
+          git config user.name "vendor-atlas-bot"
+          git config user.email "actions@github.com"
+          if git diff --quiet -- vendors.json; then
+            echo "No changes to vendors.json"
+          else
+            git add vendors.json
+            git commit -m "Weekly vendor data refresh"
+            git push
+          fi
