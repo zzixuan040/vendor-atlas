@@ -230,8 +230,11 @@ def run_research(context_vendors, model, max_uses, effort, allow_new):
     else:
         raise RuntimeError("Gave up: turn still paused after max restarts")
 
-    text = next((b.text for b in response.content if b.type == "text"), "")
-    if not text:
+    # Claude narrates before/between tool calls ("I'll spot-check..."), so the
+    # final JSON answer can be the LAST of several text blocks, not the first.
+    # Concatenate them all — extract_json_array finds the outermost [...] in it.
+    text = "\n".join(b.text for b in response.content if b.type == "text")
+    if not text.strip():
         raise RuntimeError(f"No text in final response (stop_reason={response.stop_reason})")
     return text, usage
 
