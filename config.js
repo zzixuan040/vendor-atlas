@@ -14,6 +14,6 @@
 // The anon key is a public client key by design — it is safe to commit. It is
 // NOT a service-role key; never paste a service_role key here.
 window.VENDOR_ATLAS_CONFIG = {
-  supabaseUrl: "",
-  supabaseAnonKey: ""
+  supabaseUrl: "https://mmsfvzknenjnuysmtgoa.supabase.co/rest/v1/",
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1tc2Z2emtuZW5qbnV5c210Z29hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5NzU5NDIsImV4cCI6MjEwNDU1MTk0Mn0.QpENlopU9gqv-Prd8TxTvGB6cen6OFVfx14b-7NUUe0"
 };
