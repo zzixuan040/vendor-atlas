@@ -116,7 +116,36 @@
   .empty-state, .load-state{ text-align:center; padding:56px 20px; color:var(--text-muted); }
   .empty-state strong, .load-state strong{ display:block; color:var(--text); font-size:15px; margin-bottom:6px; }
 
+  .pipeline-section{ margin-top:32px; }
+  .section-title{ font-size:16px; font-weight:700; margin-bottom:14px; }
+  .pipeline-steps{ display:flex; align-items:stretch; gap:14px; margin-bottom:14px; }
+  .pipeline-step{
+    flex:1; background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:16px 18px; display:flex; flex-direction:column; gap:6px;
+  }
+  .step-num{
+    width:22px; height:22px; border-radius:50%; background:var(--accent-soft); color:var(--accent-strong);
+    font-family:"IBM Plex Mono"; font-size:12px; font-weight:600; display:flex; align-items:center; justify-content:center;
+    margin-bottom:4px;
+  }
+  .pipeline-step h3{ font-size:14px; font-weight:700; }
+  .pipeline-step p{ margin:0; font-size:12.5px; color:var(--text-muted); line-height:1.5; }
+  .pipeline-arrow{ display:flex; align-items:center; color:var(--text-muted); font-size:18px; flex:0 0 auto; }
+  .pipeline-meta{ font-size:12px; color:var(--text-muted); margin:0 0 16px; }
+  .pipeline-meta code{ font-family:"IBM Plex Mono"; background:var(--surface-2); padding:1px 5px; border-radius:4px; font-size:11.5px; }
+
+  .history-table-wrap{ background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow-x:auto; }
+  .history-table-wrap table{ min-width:0; width:100%; }
+  .history-table-wrap th{ text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); padding:10px 12px; border-bottom:1px solid var(--border); font-weight:600; }
+  .history-table-wrap td{ padding:10px 12px; font-size:12.5px; }
+  .history-table-wrap tr:not(:last-child) td{ border-bottom:1px solid var(--border); }
+  .history-empty{ padding:20px; text-align:center; color:var(--text-muted); font-size:12.5px; background:var(--surface); border:1px dashed var(--border); border-radius:10px; }
+  .history-diff-add{ color:var(--good); }
+  .history-diff-remove{ color:var(--critical); }
+
   @media (max-width: 760px){
+    .pipeline-steps{ flex-direction:column; }
+    .pipeline-arrow{ transform:rotate(90deg); align-self:center; }
     .stats{ grid-template-columns:repeat(2,1fr); }
     .detail-inner{ grid-template-columns:1fr; }
     .topbar{ align-items:flex-start; }
@@ -185,6 +214,36 @@
         Try clearing a filter.
       </div>
     </div>
+
+    <section class="pipeline-section">
+      <h2 class="section-title">How this stays current</h2>
+      <div class="pipeline-steps">
+        <div class="pipeline-step">
+          <span class="step-num">1</span>
+          <h3>Claude researches</h3>
+          <p>A scheduled script asks Claude, with live web search, to verify existing vendors and surface new ones.</p>
+        </div>
+        <span class="pipeline-arrow" aria-hidden="true">&#8594;</span>
+        <div class="pipeline-step">
+          <span class="step-num">2</span>
+          <h3>vendors.json updates</h3>
+          <p>Verified results are committed straight to this repo — the single source of truth for the dashboard.</p>
+        </div>
+        <span class="pipeline-arrow" aria-hidden="true">&#8594;</span>
+        <div class="pipeline-step">
+          <span class="step-num">3</span>
+          <h3>This page redeploys</h3>
+          <p>GitHub Pages rebuilds automatically — the table above reflects the change within minutes.</p>
+        </div>
+      </div>
+      <p class="pipeline-meta">
+        Runs weekly (Mondays, 06:00 UTC) via
+        <a href="https://github.com/zzixuan040/vendor-atlas/actions/workflows/scrape-vendors.yml" target="_blank" rel="noopener">GitHub Actions</a>
+        — or on demand, with a scoped test mode that limits cost. Script:
+        <a href="https://github.com/zzixuan040/vendor-atlas/blob/main/scripts/scrape_vendors.py" target="_blank" rel="noopener"><code>scripts/scrape_vendors.py</code></a>
+      </p>
+      <div id="refreshHistory"></div>
+    </section>
   </div>
 </div>
 
@@ -420,7 +479,34 @@
       });
   }
 
+  function loadHistory(){
+    var el = q("refreshHistory");
+    fetch("./refresh_log.json", { cache: "no-store" })
+      .then(function(res){ if(!res.ok) throw new Error("no log yet"); return res.json(); })
+      .then(function(log){
+        if(!Array.isArray(log) || !log.length){ throw new Error("empty"); }
+        var rows = log.slice(-8).reverse().map(function(r){
+          return '<tr>' +
+            '<td class="mono">'+escapeHtml(formatDate(r.timestamp))+'</td>' +
+            '<td class="mono">'+r.vendor_count+'</td>' +
+            '<td class="mono"><span class="history-diff-add">+'+r.added+'</span> / <span class="history-diff-remove">-'+r.removed+'</span> / ~'+r.updated+'</td>' +
+            '<td class="mono">'+r.searches_used+'</td>' +
+            '<td class="mono">$'+Number(r.est_cost_usd).toFixed(3)+'</td>' +
+            '<td>'+escapeHtml(r.model || "—")+(r.sample_mode ? ' <span class="tag">test</span>' : '')+'</td>' +
+          '</tr>';
+        }).join("");
+        el.innerHTML = '<div class="history-table-wrap"><table><thead><tr>' +
+          '<th>Run date</th><th>Vendors</th><th>Added / removed / updated</th><th>Searches</th><th>Est. cost</th><th>Model</th>' +
+          '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+      })
+      .catch(function(){
+        el.innerHTML = '<div class="history-empty">No refresh runs recorded yet — trigger the workflow '+
+          '(<strong>Actions → Refresh vendor data → Run workflow</strong>) to populate this.</div>';
+      });
+  }
+
   init();
+  loadHistory();
 })();
 </script>
 </body>

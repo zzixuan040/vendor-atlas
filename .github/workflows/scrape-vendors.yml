@@ -4,7 +4,20 @@ on:
   schedule:
     # Mondays at 06:00 UTC
     - cron: "0 6 * * 1"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — print the result and its cost, write nothing"
+        type: boolean
+        default: false
+      sample:
+        description: "Test mode: only touch the first N vendors (0 = full run)"
+        type: number
+        default: 0
+      model:
+        description: "Model override, e.g. claude-sonnet-5 (blank = default claude-opus-5)"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -25,16 +38,25 @@ jobs:
       - name: Run vendor research
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python scripts/scrape_vendors.py
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+          SAMPLE: ${{ github.event.inputs.sample }}
+          MODEL_OVERRIDE: ${{ github.event.inputs.model }}
+        run: |
+          ARGS=()
+          if [ "$DRY_RUN" = "true" ]; then ARGS+=(--dry-run); fi
+          if [ -n "$SAMPLE" ] && [ "$SAMPLE" != "0" ]; then ARGS+=(--sample "$SAMPLE"); fi
+          if [ -n "$MODEL_OVERRIDE" ]; then ARGS+=(--model "$MODEL_OVERRIDE"); fi
+          echo "Running: python scripts/scrape_vendors.py ${ARGS[*]}"
+          python scripts/scrape_vendors.py "${ARGS[@]}"
 
-      - name: Commit vendors.json if it changed
+      - name: Commit vendors.json and refresh_log.json if they changed
         run: |
           git config user.name "vendor-atlas-bot"
           git config user.email "actions@github.com"
-          if git diff --quiet -- vendors.json; then
-            echo "No changes to vendors.json"
+          if git diff --quiet -- vendors.json refresh_log.json; then
+            echo "No changes to commit"
           else
-            git add vendors.json
+            git add vendors.json refresh_log.json
             git commit -m "Weekly vendor data refresh"
             git push
           fi
