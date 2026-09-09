@@ -183,6 +183,42 @@ def slugify(name):
     return slug or f"vendor-{abs(hash(name))}"
 
 
+def domain_of(url):
+    """Bare registrable-ish domain, for identity matching: https://www.X.com/y -> x.com"""
+    if not url:
+        return ""
+    d = re.sub(r"^https?://", "", str(url).strip().lower()).split("/")[0]
+    return re.sub(r"^www\.", "", d)
+
+
+def resolve_id(vendor, existing, used_ids):
+    """Reuse the existing id for a company we already track, else mint one.
+
+    Vendor ids are the key the sourcing app hangs human workflow state on
+    (status, owner, notes), so they must survive a refresh. Matching on domain
+    FIRST is deliberate: this pipeline actively looks for rebrands, and a
+    renamed vendor must keep its id. (A real example: "Centific" was renamed to
+    "Centific (formerly Pactera EDGE, incl. OneForma)" by a refresh, and a
+    name-derived id silently changed with it.)
+    """
+    dom = domain_of(vendor.get("website"))
+    if dom:
+        for e in existing:
+            if e.get("id") and domain_of(e.get("website")) == dom:
+                return e["id"]
+
+    slug = slugify(vendor.get("name", ""))
+    for e in existing:
+        if e.get("id") and (e["id"] == slug or slugify(e.get("name", "")) == slug):
+            return e["id"]
+
+    vid, i = slug, 2
+    while vid in used_ids:
+        vid = f"{slug}-{i}"
+        i += 1
+    return vid
+
+
 def estimate_cost(usage, model):
     rates = PRICING.get(model, PRICING[DEFAULT_MODEL])
     return (
@@ -244,8 +280,11 @@ def main():
     sample_mode = args.sample > 0
 
     existing = load_existing()
-    existing_by_id = {slugify(v["name"]): v for v in existing if v.get("name")}
-    context_vendors = existing[:args.sample] if sample_mode else existing
+    existing_by_id = {v["id"]: v for v in existing if v.get("id")}
+    # Archived vendors stay in the file (workflow state is keyed on them) but are
+    # not re-researched; they can still be matched, so a re-discovery un-archives.
+    active_existing = [v for v in existing if not v.get("archived")]
+    context_vendors = active_existing[:args.sample] if sample_mode else active_existing
 
     max_uses = args.max_uses or (max(4, args.sample * 2) if sample_mode else 40)
     effort = args.effort or ("low" if sample_mode else "high")
@@ -260,7 +299,7 @@ def main():
           f"{usage['search_requests']} searches | est. cost: ${cost:.4f}")
 
     vendors = extract_json_array(raw_text)
-    min_expected = 1 if sample_mode else max(5, len(existing) // 2)
+    min_expected = 1 if sample_mode else max(5, len(active_existing) // 2)
     if not isinstance(vendors, list) or len(vendors) < min_expected:
         got = len(vendors) if isinstance(vendors, list) else type(vendors).__name__
         print(f"Refusing to write: model returned {got} vendors, expected at least "
@@ -268,38 +307,59 @@ def main():
         sys.exit(1)
 
     now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    used_ids = set(existing_by_id)
     seen_ids, cleaned = set(), []
     for v in vendors:
         if not v.get("name"):
             continue
-        base_id = slugify(v["name"])
-        vid, i = base_id, 2
-        while vid in seen_ids:
-            vid = f"{base_id}-{i}"
-            i += 1
+        vid = resolve_id(v, existing, used_ids)
+        if vid in seen_ids:
+            continue  # model returned the same company twice
         seen_ids.add(vid)
+        used_ids.add(vid)
 
         v["id"] = vid
-        prior = existing_by_id.get(base_id)
+        prior = existing_by_id.get(vid)
         v["created_at"] = prior["created_at"] if prior and prior.get("created_at") else now
         v["updated_at"] = now
+        # Re-discovered after a previous refresh missed it.
+        v.pop("archived", None)
+        v.pop("archived_at", None)
         cleaned.append(v)
 
     if sample_mode:
-        # Merge into the full list — a sampled run must never drop or blank out
-        # the vendors outside its own context, dry-run or not.
+        # A sampled run only reviewed part of the list — everything it didn't
+        # look at is carried through untouched, dry-run or not.
         merged = dict(existing_by_id)
         for v in cleaned:
             merged[v["id"]] = v
-        final_vendors = sorted(merged.values(), key=lambda v: v["name"].lower())
+        final_vendors = list(merged.values())
+        archived = []
     else:
-        final_vendors = sorted(cleaned, key=lambda v: v["name"].lower())
+        # A full run archives what the model omitted instead of deleting it.
+        # Human workflow state (status/owner/notes) is keyed on these ids in the
+        # sourcing app, so dropping the record would strand a vendor someone had
+        # already rejected or put on hold.
+        final_vendors = list(cleaned)
+        archived = []
+        for e in existing:
+            if not e.get("id") or e["id"] in seen_ids:
+                continue
+            if not e.get("archived"):
+                e = dict(e, archived=True, archived_at=now)
+                archived.append(e["id"])
+            final_vendors.append(e)
 
-    added = sorted(set(v["id"] for v in cleaned) - set(existing_by_id.keys()))
-    removed = sorted(set(existing_by_id.keys()) - set(v["id"] for v in final_vendors)) if not sample_mode else []
-    updated = sorted(v["id"] for v in cleaned if v["id"] in existing_by_id and v["id"] not in added)
+    final_vendors.sort(key=lambda v: v.get("name", "").lower())
 
-    print(f"Diff: +{len(added)} added, -{len(removed)} removed, ~{len(updated)} updated")
+    added = sorted(set(v["id"] for v in cleaned) - set(existing_by_id))
+    updated = sorted(v["id"] for v in cleaned if v["id"] in existing_by_id)
+
+    print(f"Diff: +{len(added)} added, ~{len(updated)} updated, {len(archived)} archived")
+    if added:
+        print("  added:    " + ", ".join(added))
+    if archived:
+        print("  archived: " + ", ".join(sorted(archived)))
 
     if args.dry_run:
         print(f"[dry run] Would write {len(final_vendors)} vendors. Preview of first 2:")
@@ -320,7 +380,7 @@ def main():
         "sample_mode": sample_mode,
         "vendor_count": len(final_vendors),
         "added": len(added),
-        "removed": len(removed),
+        "archived": len(archived),
         "updated": len(updated),
         "searches_used": usage["search_requests"],
         "est_cost_usd": round(cost, 4),

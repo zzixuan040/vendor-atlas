@@ -1,6 +1,6 @@
 # Vendor Atlas
 
-A self-updating directory of raw training-data vendors for an AI data-annotation company's sourcing team — built as a project for Abaka AI's sourcing team.
+A shared sourcing workbench for raw training-data vendors — built as a project for Abaka AI's sourcing team.
 
 **Live dashboard:** https://zzixuan040.github.io/vendor-atlas/ *(enable GitHub Pages on this repo — see below — to activate)*
 
@@ -8,30 +8,74 @@ A self-updating directory of raw training-data vendors for an AI data-annotation
 
 ## What it does
 
-A filterable, sortable directory of ~35 real raw-data vendors (image, video, speech, text, sensor/LiDAR, synthetic, geospatial, medical, multilingual) with sourcing-relevant fields per vendor: workforce model, compliance certifications, headcount, notable clients, and a short insight note. Instead of going stale the way a one-off spreadsheet does, the list **refreshes itself weekly**: a scheduled script asks Claude — with live web search — to verify existing entries and surface new vendors, then commits the result straight to this repo.
+**The AI owns vendor facts. Humans own sourcing decisions.**
+
+A weekly AI research pass keeps a directory of ~35 real raw-data vendors current (image, video, speech, text, sensor/LiDAR, synthetic, geospatial, medical, multilingual) — workforce model, compliance certifications, headcount, notable clients, and an insight note per vendor. On top of that, the team runs its own sourcing pipeline:
+
+**New → Screening → Shortlisted → Deep Research → Qualified → Engagement**, plus **On Hold** and **Rejected**.
+
+Each vendor carries a persistent **status, owner, priority, notes, next action**, and an append-only **activity history**. Those are human decisions, stored separately from vendor facts, and **a refresh can never overwrite them** — the two live in different stores, so it isn't a matter of careful merging, it's structurally impossible.
 
 ## Architecture
 
+Two data domains, deliberately kept in two stores:
+
 ```mermaid
 flowchart LR
-    A["scripts/scrape_vendors.py<br/>(Claude + web search)"] -->|writes| B[vendors.json]
-    A -->|appends run summary| C[refresh_log.json]
-    B --> D[index.html<br/>static dashboard]
+    subgraph ai["AI-owned — vendor facts"]
+        A["scripts/scrape_vendors.py<br/>(Claude + web search)"] -->|writes| B[vendors.json]
+        A -->|run summary| C[refresh_log.json]
+        E[".github/workflows/<br/>scrape-vendors.yml<br/>(weekly cron)"] -->|runs| A
+    end
+    subgraph human["Human-owned — sourcing decisions"]
+        G[("Supabase<br/>vendor_workflow<br/>vendor_activity")]
+    end
+    B --> D[index.html<br/>dashboard]
     C --> D
-    E[".github/workflows/<br/>scrape-vendors.yml<br/>(weekly cron)"] -->|runs| A
+    G <-->|"read / write<br/>(joined on vendor id)"| D
     D -->|served by| F[GitHub Pages]
 ```
 
+The dashboard joins the two on a **stable vendor id**. Nothing in the weekly pipeline can write to the workflow store, and nothing in the browser can write to vendor facts.
+
 | File | Purpose |
 |---|---|
-| [`index.html`](index.html) | The dashboard. Pure static HTML/CSS/JS — no build step, no framework. `fetch()`s `vendors.json` and `refresh_log.json` at load time and renders everything client-side: stat tiles, filters, a sortable table, and a "how this stays current" panel. |
-| [`vendors.json`](vendors.json) | The single source of truth. A JSON array of vendor records plus a `generated_at` timestamp. Committed to the repo (not a database) so the whole history is visible in `git log` and every change is a reviewable diff. |
+| [`index.html`](index.html) | The dashboard. Pure static HTML/CSS/JS — no build step, no framework. Loads `vendors.json` + `refresh_log.json` (facts) and the workflow store (decisions), then renders the pipeline board, filters, sortable table, per-vendor workflow panel, and activity history. |
+| [`vendors.json`](vendors.json) | Vendor facts — the AI-owned half. A JSON array of vendor records plus a `generated_at` timestamp. Committed to the repo (not a database) so the whole history is visible in `git log` and every change is a reviewable diff. |
+| [`config.js`](config.js) | Where you paste your Supabase project URL + anon key to turn on team sync. Blank by default; the app then runs in clearly-labelled local-only mode. |
+| [`supabase-setup.sql`](supabase-setup.sql) | One-shot schema for the workflow store: `vendor_workflow` + `vendor_activity`, with RLS policies. Run it once in the Supabase SQL editor. |
 | [`refresh_log.json`](refresh_log.json) | A trailing log (last 20 runs) of what each refresh actually did — vendor count, added/removed/updated, searches used, estimated cost. Powers the history table on the dashboard. |
-| [`scripts/scrape_vendors.py`](scripts/scrape_vendors.py) | The refresh logic. Sends the current vendor list to Claude with the web search tool, asks it to spot-check for changes (acquisitions, shutdowns, new certifications) and surface new vendors, then rewrites `vendors.json`. Has built-in cost controls — see below. |
+| [`scripts/scrape_vendors.py`](scripts/scrape_vendors.py) | The refresh logic. Sends the current vendor list to Claude with the web search tool, asks it to spot-check for changes (acquisitions, shutdowns, new certifications) and surface new vendors, then rewrites `vendors.json`. Resolves stable ids and archives rather than deletes — see *Refresh safety*. Has built-in cost controls — see below. |
 | [`scripts/requirements.txt`](scripts/requirements.txt) | The one dependency (`anthropic`), left unpinned so the weekly run always gets the current SDK. |
 | [`.github/workflows/scrape-vendors.yml`](.github/workflows/scrape-vendors.yml) | Runs the script every Monday at 06:00 UTC, and on demand via **Actions → Run workflow** with optional test-mode inputs. Commits `vendors.json`/`refresh_log.json` only if they changed. |
 
-There is no server, no database, and no build pipeline — the dashboard is servable from any static host, and the "backend" is a GitHub Action plus a JSON file. This was a deliberate choice: a sourcing team's vendor list doesn't need real-time infrastructure, and a git-tracked JSON file gives free version history and human-reviewable diffs on every automated change.
+The dashboard is servable from any static host, and the facts "backend" is a GitHub Action plus a JSON file. This was a deliberate choice: a sourcing team's vendor list doesn't need real-time infrastructure, and a git-tracked JSON file gives free version history and human-reviewable diffs on every automated change.
+
+## Team workflow state
+
+Workflow state is the one thing a static site genuinely can't hold on its own, so it gets the smallest real backend that works: two Supabase tables, read and written directly over REST (no SDK, no build step, ~90 lines in `index.html`).
+
+**Setup (about two minutes):**
+
+1. Create a free project at [supabase.com](https://supabase.com).
+2. Run [`supabase-setup.sql`](supabase-setup.sql) in the project's SQL editor.
+3. Paste the Project URL and the **anon/public** key into [`config.js`](config.js), then commit and push.
+
+Until you do that, the app runs in **local-only mode** — fully functional, but workflow changes stay in that one browser and a banner says so. Once configured, the banner turns green and the whole team shares one board.
+
+**Identity** is deliberately minimal: you type your name once (kept in `localStorage`) and it's used for vendor ownership and as the actor on activity entries. There is no login — the brief excludes authentication, and this is an internal prototype.
+
+**Security tradeoff, stated plainly:** with no login, anyone who can open the dashboard can change workflow state. Vendor facts aren't writable from the browser at all (they live in git), so the blast radius is workflow fields only, and every change is recorded in `vendor_activity`. Add Supabase Auth and per-user policies before putting anything sensitive in here.
+
+## Refresh safety
+
+The weekly refresh must never undo a human decision. Three things make that true:
+
+1. **Separate stores.** Vendor facts live in `vendors.json` (git); status/owner/priority/notes/next action live in Supabase. The refresh script has no credentials for, and no code path to, the workflow store.
+2. **Stable vendor ids.** Workflow rows are keyed on a vendor id, so that id has to survive a rename. `resolve_id()` matches an incoming vendor to an existing one **by domain first**, then by name slug, and only mints a new id for a genuinely new company. This is not hypothetical: the first live refresh renamed *Centific* to *"Centific (formerly Pactera EDGE, incl. OneForma)"*, and a name-derived id changed silently with it.
+3. **Archive, never delete.** If a full refresh omits a vendor, the record is kept and flagged `archived: true` rather than dropped — so a vendor someone had already rejected or put on hold doesn't vanish along with the decision about it. A later refresh that re-discovers it clears the flag. Sampled (`--sample`) runs never archive anything, since they only looked at part of the list.
+
+A newly discovered vendor needs no special handling: the dashboard treats "no workflow row" as `New / Unassigned / Medium / empty`, so defaults cost nothing to store.
 
 ## Cost controls for the weekly refresh
 
@@ -78,5 +122,7 @@ ANTHROPIC_API_KEY=sk-ant-... python scripts/scrape_vendors.py                   
 
 - **Why a committed JSON file instead of a database?** The refresh is weekly, the dataset is small (dozens, not millions, of rows), and a plain file means every change — including every automated one — shows up as a normal, reviewable git diff. Anyone can see exactly what the bot changed and when.
 - **Why merge sampled runs instead of replacing the whole file?** A full run trusts the model's complete output (including omissions, which only happen on verified shutdown evidence per the prompt). A `--sample` run is explicitly a partial, cost-limited pass — merging its output into the existing list instead of replacing wholesale means a cheap test can never accidentally wipe out the other vendors.
-- **Why static HTML instead of a framework?** The dashboard is read/filter/sort only — no auth, no write path, no state beyond what's in the JSON. A build step would add nothing here.
+- **Why static HTML instead of a framework?** The whole app is one file of vanilla JS with two `fetch` targets. A build step would add ceremony without removing any real complexity.
+- **Why Supabase rather than storing workflow state in git too?** Writing to git from a browser needs a token per teammate, and every status change would become a commit and a Pages rebuild — slow, and a conflict magnet. Workflow state changes many times a day; vendor facts change once a week. Different write patterns, different stores.
+- **Why does the pipeline count treat "no row" as New?** So a vendor is never in limbo. Every vendor has an effective status from the moment it's discovered, without the refresh needing write access to the workflow store to seed defaults.
 - **Why web search over hand-rolled scraping?** Vendor "insight" fields (workforce model, compliance posture, notable clients) aren't reliably extractable from a single page with `requests`/`BeautifulSoup` — they require judgment and cross-referencing multiple sources, which is what the search tool plus the model does per vendor.

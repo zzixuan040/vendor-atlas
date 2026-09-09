@@ -90,7 +90,7 @@
   .result-count{ font-size:12px; color:var(--text-muted); margin:0 0 10px 2px; }
 
   .table-wrap{ background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow-x:auto; box-shadow:var(--shadow); }
-  table{ width:100%; border-collapse:collapse; min-width:920px; }
+  table{ width:100%; border-collapse:collapse; min-width:1360px; }
   thead th{ text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); padding:12px 14px; border-bottom:1px solid var(--border); font-weight:600; white-space:nowrap; }
   thead th.sortable{ cursor:pointer; }
   thead th.sortable:hover{ color:var(--text); }
@@ -110,11 +110,100 @@
   .row-chevron{ color:var(--text-muted); transition:transform .15s; display:inline-block; }
   .vendor-row.expanded .row-chevron{ transform:rotate(90deg); }
   .detail-row td{ padding:0; border-bottom:1px solid var(--border); }
-  .detail-inner{ padding:6px 14px 18px 42px; background:var(--surface-2); display:grid; grid-template-columns:1.4fr 1fr; gap:18px; }
+  .detail-inner{ padding:6px 14px 18px 42px; background:var(--surface-2); display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:22px; }
   .detail-inner h4{ font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin:12px 0 5px; font-weight:600; }
   .detail-inner p{ margin:0; font-size:13px; }
   .empty-state, .load-state{ text-align:center; padding:56px 20px; color:var(--text-muted); }
   .empty-state strong, .load-state strong{ display:block; color:var(--text); font-size:15px; margin-bottom:6px; }
+
+  /* --- Sourcing workflow (human-owned state) --- */
+  .topbar-right{ display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+  .identity{ display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-muted); }
+  .identity-name{ font-weight:600; color:var(--text); }
+  .identity button{
+    background:none; border:1px solid var(--border); border-radius:6px; padding:4px 10px;
+    font-size:11.5px; color:var(--text); cursor:pointer;
+  }
+  .identity button:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
+  .store-banner{
+    font-size:12px; border-radius:8px; padding:9px 14px; margin-bottom:16px;
+    display:flex; gap:8px; align-items:center;
+  }
+  .store-shared{ background:var(--good-soft); color:var(--good); border:1px solid var(--good); }
+  .store-local{ background:var(--warning-soft); color:var(--warning); border:1px solid var(--warning); }
+
+  .board{ margin-bottom:18px; }
+  .board-head{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:9px; flex-wrap:wrap; }
+  .board-title{ font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); font-weight:600; }
+  .board-quick{ display:flex; gap:6px; flex-wrap:wrap; }
+  .quick-chip{
+    border:1px solid var(--border); background:var(--surface); color:var(--text-muted);
+    border-radius:999px; padding:3px 10px; font-size:11.5px; cursor:pointer;
+  }
+  .quick-chip:hover{ border-color:var(--accent); color:var(--accent-strong); }
+  .quick-chip.active{ background:var(--accent-soft); border-color:var(--accent); color:var(--accent-strong); font-weight:600; }
+  .stage-row{ display:grid; grid-template-columns:repeat(8, minmax(0,1fr)); gap:8px; }
+  .stage{
+    background:var(--surface); border:1px solid var(--border); border-top:3px solid var(--stage-color, var(--border));
+    border-radius:9px; padding:10px 11px; cursor:pointer; text-align:left; font-family:inherit;
+    display:flex; flex-direction:column; gap:3px; transition:border-color .12s, background .12s;
+  }
+  .stage:hover{ background:var(--surface-2); }
+  .stage.active{ background:var(--accent-soft); border-color:var(--accent); border-top-color:var(--stage-color, var(--accent)); }
+  .stage-count{ font-family:"IBM Plex Mono"; font-size:20px; font-weight:600; color:var(--text); line-height:1.1; }
+  .stage-name{ font-size:11px; color:var(--text-muted); line-height:1.3; }
+
+  /* Stage accents: cool -> warm as a vendor advances, red/grey for exits. */
+  .stage-new{ --stage-color:#8FA3B8; }
+  .stage-screening{ --stage-color:#6FA8C7; }
+  .stage-shortlisted{ --stage-color:#4E9BB5; }
+  .stage-deep-research{ --stage-color:#3D8E92; }
+  .stage-qualified{ --stage-color:#2F7D4F; }
+  .stage-engagement{ --stage-color:#7A9E2E; }
+  .stage-on-hold{ --stage-color:#A9740F; }
+  .stage-rejected{ --stage-color:#B23A3A; }
+
+  .status-pill{
+    display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; white-space:nowrap;
+  }
+  .status-dot{ width:7px; height:7px; border-radius:50%; background:var(--stage-color, var(--border)); flex:0 0 auto; }
+
+  .wf-select{
+    background:var(--bg); border:1px solid var(--border); border-radius:6px; color:var(--text);
+    font-family:inherit; font-size:12px; padding:4px 6px; max-width:100%;
+  }
+  .wf-select:hover{ border-color:var(--accent); }
+  .prio-High{ color:var(--critical); font-weight:700; }
+  .prio-Medium{ color:var(--text-muted); }
+  .prio-Low{ color:var(--text-muted); opacity:0.75; }
+  .next-action-cell{ max-width:180px; font-size:12px; color:var(--text-muted); }
+  .next-action-cell.set{ color:var(--text); }
+  .unassigned{ color:var(--text-muted); font-style:italic; }
+  .archived-badge{
+    background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border);
+    border-radius:5px; padding:1px 6px; font-size:10.5px; font-weight:600; margin-left:6px; white-space:nowrap;
+  }
+
+  .wf-panel{ display:flex; flex-direction:column; gap:10px; }
+  .wf-field{ display:flex; flex-direction:column; gap:4px; }
+  .wf-field label{ font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); font-weight:600; }
+  .wf-field input[type=text], .wf-field textarea{
+    background:var(--bg); border:1px solid var(--border); border-radius:6px; color:var(--text);
+    padding:7px 9px; font-size:12.5px; font-family:inherit; width:100%;
+  }
+  .wf-field textarea{ resize:vertical; min-height:58px; }
+  .wf-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .wf-row .wf-field{ flex:1; min-width:120px; }
+  .assign-me{
+    background:none; border:none; color:var(--accent-strong); font-size:11px; cursor:pointer;
+    text-decoration:underline; padding:0; align-self:flex-start;
+  }
+  .activity-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; max-height:220px; overflow-y:auto; }
+  .activity-item{ font-size:12px; color:var(--text); display:flex; gap:7px; line-height:1.45; }
+  .activity-when{ font-family:"IBM Plex Mono"; font-size:11px; color:var(--text-muted); flex:0 0 auto; }
+  .activity-actor{ font-weight:600; }
+  .activity-empty{ font-size:12px; color:var(--text-muted); }
 
   .pipeline-section{ margin-top:32px; }
   .section-title{ font-size:16px; font-weight:700; margin-bottom:14px; }
@@ -143,7 +232,11 @@
   .history-diff-add{ color:var(--good); }
   .history-diff-remove{ color:var(--critical); }
 
+  @media (max-width: 900px){
+    .stage-row{ grid-template-columns:repeat(4, minmax(0,1fr)); }
+  }
   @media (max-width: 760px){
+    .stage-row{ grid-template-columns:repeat(2, minmax(0,1fr)); }
     .pipeline-steps{ flex-direction:column; }
     .pipeline-arrow{ transform:rotate(90deg); align-self:center; }
     .stats{ grid-template-columns:repeat(2,1fr); }
@@ -154,6 +247,7 @@
 </style>
 </head>
 <body>
+<script src="./config.js"></script>
 
 <div class="shell">
   <div class="topbar">
@@ -162,14 +256,27 @@
       <h1 class="brand-title">Vendor Atlas</h1>
       <p class="brand-sub">A directory of raw training-data vendors — collection &amp; licensing partners for image, video, speech, text, sensor and synthetic data.</p>
     </div>
-    <div class="refresh-badge" id="refreshBadge"></div>
+    <div class="topbar-right">
+      <div class="identity" id="identity"></div>
+      <div class="refresh-badge" id="refreshBadge"></div>
+    </div>
   </div>
 
-  <p class="source-note">Read-only — refreshed automatically once a week by a scheduled script that verifies entries and searches for new vendors. See <code>vendors.json</code> and <code>scripts/scrape_vendors.py</code> in this repo.</p>
+  <p class="source-note">Vendor facts are refreshed weekly by a scheduled AI research script (<code>vendors.json</code>). Sourcing decisions — status, owner, priority, notes — are yours, and are never touched by a refresh.</p>
 
   <div id="loadState" class="load-state">Loading vendor data&hellip;</div>
 
   <div id="app" hidden>
+    <div id="storeBanner"></div>
+
+    <section class="board">
+      <div class="board-head">
+        <span class="board-title">Sourcing pipeline</span>
+        <div class="board-quick" id="boardQuick"></div>
+      </div>
+      <div class="stage-row" id="stageRow"></div>
+    </section>
+
     <div class="stats" id="statsRow"></div>
 
     <div class="filters">
@@ -200,6 +307,10 @@
           <tr>
             <th style="width:22px;"></th>
             <th class="sortable" data-sort="name">Vendor</th>
+            <th>Status</th>
+            <th>Owner</th>
+            <th>Priority</th>
+            <th>Next action</th>
             <th>Data types</th>
             <th class="sortable" data-sort="hq_country">Region</th>
             <th>Workforce</th>
@@ -253,13 +364,171 @@
 
   var DATA_TYPES = ["image","video","audio/speech","text/NLP","sensor/LiDAR","synthetic","geospatial","medical","multilingual"];
 
+  // --- Human-owned workflow state -----------------------------------------
+  // Vendor facts come from vendors.json (AI-refreshed, read-only here).
+  // Everything below is decided by people and stored separately, so a refresh
+  // can never overwrite it.
+  var STATUSES = ["New","Screening","Shortlisted","Deep Research","Qualified","Engagement","On Hold","Rejected"];
+  var PRIORITIES = ["High","Medium","Low"];
+  var WF_DEFAULT = { status:"New", owner:"", priority:"Medium", notes:"", next_action:"" };
+  var FIELD_LABEL = { status:"Status", owner:"Owner", priority:"Priority", notes:"Notes", next_action:"Next action" };
+
+  function stageClass(status){
+    return "stage-" + String(status).toLowerCase().replace(/[^a-z]+/g, "-");
+  }
+
+  var cfg = window.VENDOR_ATLAS_CONFIG || {};
+
+  // Two interchangeable backends behind one interface: Supabase (shared across
+  // the team) when configured, localStorage (this browser only) otherwise.
+  var Store = {
+    mode: (cfg.supabaseUrl && cfg.supabaseAnonKey) ? "supabase" : "local",
+    error: "",
+
+    _headers: function(extra){
+      var h = {
+        "apikey": cfg.supabaseAnonKey,
+        "Authorization": "Bearer " + cfg.supabaseAnonKey,
+        "Content-Type": "application/json"
+      };
+      for(var k in (extra || {})){ h[k] = extra[k]; }
+      return h;
+    },
+    _url: function(path){ return String(cfg.supabaseUrl).replace(/\/$/, "") + "/rest/v1/" + path; },
+
+    load: function(){
+      var self = this;
+      if(this.mode === "local") return Promise.resolve(this._loadLocal());
+      return Promise.all([
+        fetch(this._url("vendor_workflow?select=*"), { headers:this._headers(), cache:"no-store" }),
+        fetch(this._url("vendor_activity?select=*&order=ts.desc&limit=1000"), { headers:this._headers(), cache:"no-store" })
+      ]).then(function(rs){
+        if(!rs[0].ok || !rs[1].ok) throw new Error("HTTP " + rs[0].status + " / " + rs[1].status);
+        return Promise.all([rs[0].json(), rs[1].json()]);
+      }).then(function(d){
+        var workflow = {}, activity = {};
+        d[0].forEach(function(r){ workflow[r.vendor_id] = r; });
+        d[1].forEach(function(a){ (activity[a.vendor_id] = activity[a.vendor_id] || []).push(a); });
+        return { workflow: workflow, activity: activity };
+      }).catch(function(err){
+        // Never leave the board unusable because the backend is down.
+        console.warn("Shared store unreachable, falling back to local:", err);
+        self.mode = "local";
+        self.error = err.message;
+        return self._loadLocal();
+      });
+    },
+
+    saveWorkflow: function(row){
+      if(this.mode === "local") return this._saveLocal();
+      return fetch(this._url("vendor_workflow"), {
+        method: "POST",
+        headers: this._headers({ "Prefer": "resolution=merge-duplicates,return=minimal" }),
+        body: JSON.stringify([row])
+      }).then(this._ok);
+    },
+
+    addActivity: function(entry){
+      if(this.mode === "local") return this._saveLocal();
+      return fetch(this._url("vendor_activity"), {
+        method: "POST",
+        headers: this._headers({ "Prefer": "return=minimal" }),
+        body: JSON.stringify([entry])
+      }).then(this._ok);
+    },
+
+    _ok: function(r){
+      if(r.ok) return null;
+      return r.text().then(function(t){ throw new Error(t || ("HTTP " + r.status)); });
+    },
+    _loadLocal: function(){
+      try{
+        return {
+          workflow: JSON.parse(localStorage.getItem("va.workflow") || "{}"),
+          activity: JSON.parse(localStorage.getItem("va.activity") || "{}")
+        };
+      }catch(e){ return { workflow:{}, activity:{} }; }
+    },
+    _saveLocal: function(){
+      try{
+        localStorage.setItem("va.workflow", JSON.stringify(state.workflow));
+        localStorage.setItem("va.activity", JSON.stringify(state.activity));
+      }catch(e){ console.warn("localStorage write failed", e); }
+      return Promise.resolve();
+    }
+  };
+
   var state = {
     vendors: [],
+    workflow: {},          // vendorId -> workflow row
+    activity: {},          // vendorId -> [activity entries]
+    identity: "",
     activeDataTypes: new Set(),
     search: "", region: "", workforce: "",
+    stageFilter: "", quickFilter: "",
     sortField: "name", sortDir: "asc",
     expandedId: null
   };
+
+  function getWf(vendorId){
+    var s = state.workflow[vendorId] || {};
+    return {
+      vendor_id: vendorId,
+      status: s.status || WF_DEFAULT.status,
+      owner: s.owner || "",
+      priority: s.priority || WF_DEFAULT.priority,
+      notes: s.notes || "",
+      next_action: s.next_action || ""
+    };
+  }
+
+  function setWfField(vendorId, field, newValue){
+    var row = getWf(vendorId);
+    var oldValue = row[field];
+    if(String(oldValue) === String(newValue)) return;   // no-op, no activity noise
+
+    row[field] = newValue;
+    row.updated_at = new Date().toISOString();
+    row.updated_by = state.identity || null;
+    state.workflow[vendorId] = row;
+
+    var entry = {
+      vendor_id: vendorId,
+      ts: new Date().toISOString(),
+      actor: state.identity || "",
+      action: field,
+      old_value: String(oldValue || ""),
+      new_value: String(newValue || "")
+    };
+    (state.activity[vendorId] = state.activity[vendorId] || []).unshift(entry);
+
+    render();   // optimistic: reflect immediately, then persist
+
+    Store.saveWorkflow(row)
+      .then(function(){ return Store.addActivity(entry); })
+      .catch(function(err){
+        console.error("Failed to persist workflow change", err);
+        window.alert("Couldn't save that change — teammates may not see it.\n\n" + err.message);
+      });
+  }
+
+  function knownOwners(){
+    var seen = {};
+    Object.keys(state.workflow).forEach(function(id){
+      var o = state.workflow[id] && state.workflow[id].owner;
+      if(o) seen[o] = true;
+    });
+    if(state.identity) seen[state.identity] = true;
+    return Object.keys(seen).sort();
+  }
+
+  function getIdentity(){
+    try{ return localStorage.getItem("va.identity") || ""; }catch(e){ return ""; }
+  }
+  function setIdentity(name){
+    try{ localStorage.setItem("va.identity", name); }catch(e){}
+    state.identity = name;
+  }
 
   var els = {};
   function q(id){ return document.getElementById(id); }
@@ -274,6 +543,29 @@
     els.resultCount = q("resultCount");
     els.vendorTbody = q("vendorTbody");
     els.emptyState = q("emptyState");
+    els.stageRow = q("stageRow");
+    els.boardQuick = q("boardQuick");
+
+    // One delegated handler for every workflow control, in the row and in the
+    // expanded panel alike. "change" (not "input") means text fields commit on
+    // blur — so a re-render never yanks the caret out from under someone typing.
+    els.vendorTbody.addEventListener("change", function(e){
+      var el = e.target;
+      if(!el.matches("[data-vendor][data-field]")) return;
+      setWfField(el.getAttribute("data-vendor"), el.getAttribute("data-field"), el.value);
+    });
+    els.vendorTbody.addEventListener("click", function(e){
+      var btn = e.target.closest(".assign-me");
+      if(!btn) return;
+      e.stopPropagation();
+      setWfField(btn.getAttribute("data-assign"), "owner", state.identity);
+    });
+    els.vendorTbody.addEventListener("keydown", function(e){
+      if(e.key === "Enter" && e.target.matches('input[data-field="next_action"]')){
+        e.preventDefault();
+        e.target.blur();   // commit via the change handler
+      }
+    });
 
     buildDataTypeChips();
 
@@ -291,6 +583,8 @@
       });
     });
 
+    state.identity = getIdentity();
+    renderIdentity();
     loadVendors();
   }
 
@@ -313,6 +607,7 @@
   function clearFilters(){
     state.activeDataTypes.clear();
     state.search = ""; state.region = ""; state.workforce = "";
+    state.stageFilter = ""; state.quickFilter = "";
     els.searchInput.value = ""; els.regionSelect.value = ""; els.workforceSelect.value = "";
     document.querySelectorAll("#dataTypeChips .chip").forEach(function(c){ c.classList.remove("active"); });
     render();
@@ -348,6 +643,124 @@
     return "wf-platform";
   }
 
+  function renderIdentity(){
+    var el = q("identity");
+    el.innerHTML = state.identity
+      ? '<span>You: <span class="identity-name">' + escapeHtml(state.identity) + '</span></span><button type="button" id="identityBtn">Change</button>'
+      : '<span>Not identified</span><button type="button" id="identityBtn">Set your name</button>';
+    q("identityBtn").addEventListener("click", function(){
+      var name = window.prompt("Your name — used for vendor ownership and activity history:", state.identity || "");
+      if(name === null) return;
+      setIdentity(name.trim());
+      renderIdentity();
+      render();
+    });
+  }
+
+  function renderStoreBanner(){
+    var el = q("storeBanner");
+    if(Store.mode === "supabase"){
+      el.innerHTML = '<div class="store-banner store-shared">Shared workspace — workflow changes are visible to the whole sourcing team.</div>';
+      return;
+    }
+    el.innerHTML = '<div class="store-banner store-local"><span>Local only — workflow changes are saved in this browser and are <strong>not</strong> shared. ' +
+      (Store.error
+        ? 'Shared storage unreachable: ' + escapeHtml(Store.error)
+        : 'Set <code>supabaseUrl</code> and <code>supabaseAnonKey</code> in <code>config.js</code> to enable team sync.') +
+      '</span></div>';
+  }
+
+  function renderBoard(){
+    var counts = {};
+    STATUSES.forEach(function(s){ counts[s] = 0; });
+    state.vendors.forEach(function(v){
+      var s = getWf(v.id).status;
+      if(counts[s] === undefined) counts[s] = 0;
+      counts[s]++;
+    });
+
+    els.stageRow.innerHTML = STATUSES.map(function(s){
+      return '<button type="button" class="stage ' + stageClass(s) + (state.stageFilter === s ? ' active' : '') + '" data-stage="' + escapeHtml(s) + '">' +
+        '<span class="stage-count">' + counts[s] + '</span>' +
+        '<span class="stage-name">' + escapeHtml(s) + '</span>' +
+      '</button>';
+    }).join("");
+    Array.prototype.forEach.call(els.stageRow.querySelectorAll(".stage"), function(btn){
+      btn.addEventListener("click", function(){
+        var s = btn.getAttribute("data-stage");
+        state.stageFilter = (state.stageFilter === s) ? "" : s;
+        render();
+      });
+    });
+
+    var unassigned = state.vendors.filter(function(v){ return !getWf(v.id).owner; }).length;
+    var high = state.vendors.filter(function(v){ return getWf(v.id).priority === "High"; }).length;
+    var chips = [
+      { key:"unassigned", label:"Unassigned · " + unassigned },
+      { key:"high", label:"High priority · " + high }
+    ];
+    if(state.identity){
+      var mine = state.vendors.filter(function(v){ return getWf(v.id).owner === state.identity; }).length;
+      chips.push({ key:"mine", label:"Mine · " + mine });
+    }
+    els.boardQuick.innerHTML = chips.map(function(c){
+      return '<button type="button" class="quick-chip' + (state.quickFilter === c.key ? ' active' : '') + '" data-quick="' + c.key + '">' + escapeHtml(c.label) + '</button>';
+    }).join("");
+    Array.prototype.forEach.call(els.boardQuick.querySelectorAll(".quick-chip"), function(btn){
+      btn.addEventListener("click", function(){
+        var k = btn.getAttribute("data-quick");
+        state.quickFilter = (state.quickFilter === k) ? "" : k;
+        render();
+      });
+    });
+  }
+
+  function selectHtml(vendorId, field, value, options){
+    var opts = options.map(function(o){
+      var val = (o && o.value !== undefined) ? o.value : o;
+      var label = (o && o.label !== undefined) ? o.label : o;
+      return '<option value="' + escapeHtml(val) + '"' + (String(val) === String(value) ? ' selected' : '') + '>' + escapeHtml(label) + '</option>';
+    }).join("");
+    return '<select class="wf-select" data-vendor="' + escapeHtml(vendorId) + '" data-field="' + field + '">' + opts + '</select>';
+  }
+
+  function ownerOptions(){
+    var opts = [{ value:"", label:"Unassigned" }];
+    knownOwners().forEach(function(o){ opts.push({ value:o, label:o }); });
+    return opts;
+  }
+
+  function shortDate(iso){
+    if(!iso) return "";
+    try{
+      return new Date(iso).toLocaleDateString(undefined, { month:"short", day:"numeric" });
+    }catch(e){ return String(iso).slice(0, 10); }
+  }
+
+  function describeActivity(a){
+    if(a.action === "notes") return "updated notes";
+    if(a.action === "next_action") return "set next action to “" + (a.new_value || "—") + "”";
+    if(a.action === "owner") return "changed owner " + (a.old_value || "Unassigned") + " → " + (a.new_value || "Unassigned");
+    var label = (FIELD_LABEL[a.action] || a.action).toLowerCase();
+    return "changed " + label + " " + (a.old_value || "—") + " → " + (a.new_value || "—");
+  }
+
+  function activityHtml(v){
+    var list = (state.activity[v.id] || []).slice();
+    list.sort(function(a, b){ return String(b.ts).localeCompare(String(a.ts)); });
+    var items = list.map(function(a){
+      return '<li class="activity-item"><span class="activity-when">' + escapeHtml(shortDate(a.ts)) + '</span>' +
+        '<span><span class="activity-actor">' + escapeHtml(a.actor || "Someone") + '</span> ' + escapeHtml(describeActivity(a)) + '</span></li>';
+    });
+    // Discovery isn't stored as an activity row — it's a fact of the vendor
+    // record, so derive it rather than duplicating it into the workflow store.
+    if(v.created_at){
+      items.push('<li class="activity-item"><span class="activity-when">' + escapeHtml(shortDate(v.created_at)) + '</span>' +
+        '<span><span class="activity-actor">AI refresh</span> discovered this vendor</span></li>');
+    }
+    return items.length ? '<ul class="activity-list">' + items.join("") + '</ul>' : '<p class="activity-empty">No activity yet.</p>';
+  }
+
   function populateSelectOptions(){
     var regions = Array.from(new Set(state.vendors.map(function(v){ return v.hq_country; }).filter(Boolean))).sort();
     els.regionSelect.innerHTML = '<option value="">All regions</option>' + regions.map(function(r){ return '<option value="'+escapeHtml(r)+'">'+escapeHtml(r)+'</option>'; }).join("");
@@ -360,6 +773,11 @@
 
   function filteredSorted(){
     var list = state.vendors.filter(function(v){
+      var wf = getWf(v.id);
+      if(state.stageFilter && wf.status !== state.stageFilter) return false;
+      if(state.quickFilter === "unassigned" && wf.owner) return false;
+      if(state.quickFilter === "high" && wf.priority !== "High") return false;
+      if(state.quickFilter === "mine" && wf.owner !== state.identity) return false;
       if(state.activeDataTypes.size){
         var types = v.data_types || [];
         if(!Array.from(state.activeDataTypes).some(function(t){ return types.indexOf(t) !== -1; })) return false;
@@ -385,6 +803,7 @@
 
   function render(){
     populateSelectOptions();
+    renderBoard();
     renderStats();
     var list = filteredSorted();
     els.resultCount.textContent = list.length + " vendor" + (list.length === 1 ? "" : "s") + (state.vendors.length !== list.length ? " (of " + state.vendors.length + ")" : "");
@@ -423,18 +842,27 @@
   }
 
   function renderRow(v){
+    var wf = getWf(v.id);
     var tr = document.createElement("tr");
     tr.className = "vendor-row" + (state.expandedId === v.id ? " expanded" : "");
     var types = (v.data_types||[]).map(function(t){ return '<span class="tag">'+escapeHtml(t)+'</span>'; }).join("");
+    var archived = v.archived ? '<span class="archived-badge">Archived</span>' : "";
     tr.innerHTML =
       '<td><span class="row-chevron">&#9656;</span></td>' +
-      '<td><div class="v-name">'+escapeHtml(v.name)+'</div><div class="v-website">'+escapeHtml(v.website||"")+'</div></td>' +
+      '<td><div class="v-name">'+escapeHtml(v.name)+archived+'</div><div class="v-website">'+escapeHtml(v.website||"")+'</div></td>' +
+      '<td>'+selectHtml(v.id, "status", wf.status, STATUSES)+'</td>' +
+      '<td>'+selectHtml(v.id, "owner", wf.owner, ownerOptions())+'</td>' +
+      '<td>'+selectHtml(v.id, "priority", wf.priority, PRIORITIES)+'</td>' +
+      '<td class="next-action-cell'+(wf.next_action ? " set" : "")+'">'+escapeHtml(wf.next_action || "—")+'</td>' +
       '<td><div class="tag-row">'+types+'</div></td>' +
       '<td>'+escapeHtml(v.hq_country||"—")+'</td>' +
       '<td><span class="wf-badge '+wfClass(v.workforce_model)+'">'+escapeHtml(labelForWorkforce(v.workforce_model))+'</span></td>' +
       '<td class="mono">'+(v.founded_year||"—")+'</td>' +
       '<td class="mono">'+escapeHtml(v.employee_size_range||"—")+'</td>';
-    tr.addEventListener("click", function(){
+    tr.addEventListener("click", function(e){
+      // Workflow controls live inside the row; operating one must not also
+      // collapse/expand it.
+      if(e.target.closest("select, input, textarea, button, a")) return;
       state.expandedId = state.expandedId === v.id ? null : v.id;
       render();
     });
@@ -444,15 +872,33 @@
       var dtr = document.createElement("tr");
       dtr.className = "detail-row";
       var servicesHtml = (v.services||[]).map(function(s){ return '<span class="tag">'+escapeHtml(s)+'</span>'; }).join(" ") || "—";
-      dtr.innerHTML = '<td colspan="7"><div class="detail-inner">' +
+      var assignMe = (state.identity && wf.owner !== state.identity)
+        ? '<button type="button" class="assign-me" data-assign="'+escapeHtml(v.id)+'">Assign to me</button>'
+        : "";
+      dtr.innerHTML = '<td colspan="11"><div class="detail-inner">' +
         '<div>' +
           '<h4>Insight</h4><p>'+escapeHtml(v.notes||"No notes yet.")+'</p>' +
           '<h4>Notable clients / industries</h4><p>'+escapeHtml(v.notable_clients_or_industries||"—")+'</p>' +
-        '</div>' +
-        '<div>' +
           '<h4>Services</h4><p>'+servicesHtml+'</p>' +
           '<h4>Compliance</h4><p>'+escapeHtml(v.compliance_notes||"Not documented")+'</p>' +
           '<h4>Source</h4><p>'+(v.source_url ? '<a href="'+escapeHtml(v.source_url)+'" target="_blank" rel="noopener">'+escapeHtml(v.source_url)+'</a>' : "—")+'</p>' +
+        '</div>' +
+        '<div>' +
+          '<h4>Sourcing workflow</h4>' +
+          '<div class="wf-panel">' +
+            '<div class="wf-row">' +
+              '<div class="wf-field"><label>Status</label>'+selectHtml(v.id, "status", wf.status, STATUSES)+'</div>' +
+              '<div class="wf-field"><label>Priority</label>'+selectHtml(v.id, "priority", wf.priority, PRIORITIES)+'</div>' +
+            '</div>' +
+            '<div class="wf-field"><label>Owner</label>'+selectHtml(v.id, "owner", wf.owner, ownerOptions())+assignMe+'</div>' +
+            '<div class="wf-field"><label>Next action</label>' +
+              '<input type="text" data-vendor="'+escapeHtml(v.id)+'" data-field="next_action" value="'+escapeHtml(wf.next_action)+'" placeholder="e.g. Verify workforce scale"></div>' +
+            '<div class="wf-field"><label>Notes</label>' +
+              '<textarea data-vendor="'+escapeHtml(v.id)+'" data-field="notes" placeholder="Internal sourcing notes…">'+escapeHtml(wf.notes)+'</textarea></div>' +
+          '</div>' +
+        '</div>' +
+        '<div>' +
+          '<h4>Activity</h4>' + activityHtml(v) +
         '</div>' +
       '</div></td>';
       els.vendorTbody.appendChild(dtr);
@@ -460,18 +906,24 @@
   }
 
   function loadVendors(){
-    fetch("./vendors.json", { cache: "no-store" })
-      .then(function(res){
+    Promise.all([
+      fetch("./vendors.json", { cache: "no-store" }).then(function(res){
         if(!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
-      })
-      .then(function(payload){
+      }),
+      Store.load()          // resolves to empty state rather than rejecting
+    ])
+      .then(function(results){
+        var payload = results[0], stored = results[1];
         state.vendors = Array.isArray(payload) ? payload : (payload.vendors || []);
+        state.workflow = stored.workflow || {};
+        state.activity = stored.activity || {};
         els.refreshBadge.innerHTML = payload.generated_at
           ? '<span>Data refreshed</span><strong>' + escapeHtml(formatDate(payload.generated_at)) + '</strong>'
           : "";
         q("loadState").hidden = true;
         q("app").hidden = false;
+        renderStoreBanner();
         render();
       })
       .catch(function(err){
@@ -489,14 +941,14 @@
           return '<tr>' +
             '<td class="mono">'+escapeHtml(formatDate(r.timestamp))+'</td>' +
             '<td class="mono">'+r.vendor_count+'</td>' +
-            '<td class="mono"><span class="history-diff-add">+'+r.added+'</span> / <span class="history-diff-remove">-'+r.removed+'</span> / ~'+r.updated+'</td>' +
+            '<td class="mono"><span class="history-diff-add">+'+r.added+'</span> / <span class="history-diff-remove">-'+(r.archived !== undefined ? r.archived : (r.removed || 0))+'</span> / ~'+r.updated+'</td>' +
             '<td class="mono">'+r.searches_used+'</td>' +
             '<td class="mono">$'+Number(r.est_cost_usd).toFixed(3)+'</td>' +
             '<td>'+escapeHtml(r.model || "—")+(r.sample_mode ? ' <span class="tag">test</span>' : '')+'</td>' +
           '</tr>';
         }).join("");
         el.innerHTML = '<div class="history-table-wrap"><table><thead><tr>' +
-          '<th>Run date</th><th>Vendors</th><th>Added / removed / updated</th><th>Searches</th><th>Est. cost</th><th>Model</th>' +
+          '<th>Run date</th><th>Vendors</th><th>Added / archived / updated</th><th>Searches</th><th>Est. cost</th><th>Model</th>' +
           '</tr></thead><tbody>' + rows + '</tbody></table></div>';
       })
       .catch(function(){
